@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogos Divertidos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
+        header {
+            background-color: #ff6b81;
+            color: #fff;
+            padding: 20px 0;
+        }
+        h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        #answer {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        #full-screen-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        #full-screen-image img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            position: relative;
+            z-index: 1;
+        }
+        #image-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            z-index: 10000;
+        }
+        #back-button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10000;
+        }
+    </style>
+</head>
+<body>
+    <audio autoplay loop>
+        <source src="music/Serenata.mp4" type="audio/mpeg">
+    </audio>
+    <header>
+        <a style="color: #ff0026;" href="index.html"><h1>Só para a fun hehe</h1></a>
+    </header>
+    <div class="container">
+        <h2>Perguntas e Respostas</h2>
+        <div id="question"></div>
+        <input type="text" id="userAnswer" placeholder="Insira sua resposta">
+        <button onclick="checkAnswer()">Verificar Resposta</button>
+        <div id="answer"></div>
+        <button onclick="nextQuestion()">Próxima Pergunta</button>
+        <div id="full-screen-image">
+            <div id="image-overlay">Amo-te</div>
+            <img src="img/50BA0F07-3389-4802-8E22-637E76632618.JPG" alt="Imagem em Tela Cheia">
+            <button id="back-button" onclick="hideFullScreenImage()">Voltar</button>
+        </div>
+    </div>
+    <script>
+        const questions = [
+            { question: "Qual foi o primeiro filme que assistimos juntos?", answer: "Jurassic Park" },
+            { question: "Qual é a minha comida favorita?", answer: "Massa Carbonara" },
+            { question: "Qual é o seu sonho de viagem?", answer: "Paris" },
+            { question: "Qual foi o dia em que te dei o primeiro beijo(dia da semana)?", answer: "Quarta-Feira" },
+            { question: "Que mais gosto de fazer?", answer: "Gym" },
+            { question: "Sou eu o melhor namorado que poderias ter?", answer: "Sim" },
+            { question: "Es linda?", answer: "Sim" },
+            { question: "Sei que não é muito mas gostas-te?", answer: "Sim" }
+        ];
+
+        let currentQuestionIndex = -1;
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= questions.length) {
+                showFullScreenImage();
+            } else {
+                document.getElementById('question').textContent = questions[currentQuestionIndex].question;
+                document.getElementById('answer').textContent = "";
+                document.getElementById('userAnswer').value = "";
+            }
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById('userAnswer').value.trim().toLowerCase();
+            const correctAnswer = questions[currentQuestionIndex].answer.toLowerCase();
+            if (userAnswer === correctAnswer) {
+                document.getElementById('answer').textContent = "Certo!";
+            } else {
+                document.getElementById('answer').textContent = "Errado!";
+            }
+        }
+
+        function showFullScreenImage() {
+            document.getElementById('full-screen-image').style.display = 'flex';
+        }
+
+        function hideFullScreenImage() {
+            document.getElementById('full-screen-image').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
